@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: custom-deploy
+  labels:
+    app: custom-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: custom-deploy
+  template:
+    metadata:
+      labels:
+        app: custom-deploy
+    spec:
+      containers:
+      - name: custom-deploy
+        image: core.innogrid.duckdns.org/innogrid/mycustom:latest
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: docker-secret
